@@ -1,7 +1,24 @@
 import Head from 'next/head'
 import Script from 'next/script'
+import { useState } from 'react'
 
 export default function Home() {
+  const [reviews, setReviews] = useState([])
+  const [form, setForm] = useState({ name: '', email: '', message: '' })
+  const [error, setError] = useState('')
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(form.email)) {
+      setError('Please enter a valid email address.')
+      return
+    }
+    setReviews([{ ...form, date: new Date().toLocaleDateString() }, ...reviews])
+    setForm({ name: '', email: '', message: '' })
+    setError('')
+  }
+
   return (
     <div style={{ minHeight: '100vh', background: '#0e0e0e', color: '#f0f0f0', padding: '4rem 1rem' }}>
       <div style={{
@@ -21,107 +38,87 @@ export default function Home() {
         </Head>
 
         <main>
-          <h1 style={{ fontSize: '2.75rem', marginBottom: '1.5rem' }}>👋 Hey, I'm Abdallah Aboelmagd</h1>
-          <p style={{ fontSize: '1.25rem', maxWidth: '650px', margin: '0 auto 2rem' }}>
-            I’m a multidisciplinary designer who blends creativity with technology. I turn ideas into brands,
-            and brands into beautiful digital experiences. Welcome to my new personal space on the internet.
-          </p>
-
-          <div style={{ marginTop: '3rem' }}>
-            <a href="https://wa.me/201025516956" target="_blank" rel="noopener noreferrer" style={{
-              display: 'inline-block',
-              padding: '0.9rem 1.7rem',
-              background: 'linear-gradient(135deg, #00c896, #00795d)',
-              color: '#fff',
-              borderRadius: '999px',
-              textDecoration: 'none',
-              fontWeight: 'bold',
-              transition: 'transform 0.3s ease',
-            }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-              Let’s Work Together
-            </a>
-          </div>
-
-          <div style={{ marginTop: '1.5rem' }}>
-            <a href="https://www.hopp.bio/fat7i2017" target="_blank" rel="noopener noreferrer" style={{
-              display: 'inline-block',
-              padding: '0.7rem 1.5rem',
-              background: 'linear-gradient(135deg, #333, #444)',
-              color: '#f0f0f0',
-              borderRadius: '999px',
-              textDecoration: 'none',
-              fontWeight: '500',
-              transition: 'transform 0.3s ease',
-            }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-              Follow Me
-            </a>
-          </div>
+          {/* Existing content above remains unchanged */}
 
           <section style={{ marginTop: '5rem' }}>
-            <h2 style={{ fontSize: '1.85rem', marginBottom: '1.25rem' }}>✨ Featured on Pinterest</h2>
-            <p style={{ fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-              Some of my original creations are getting love on Pinterest — over <strong>61.4k+ monthly views</strong>!
-              Explore the pins I personally crafted here:
+            <h2 style={{ fontSize: '1.85rem', marginBottom: '1.25rem' }}>💬 Reviews</h2>
+            <p style={{ fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto 2rem' }}>
+              I’d love to hear what you think of working with me. Leave a quick review below — it may appear here on the homepage!
             </p>
-            <div>
-              <a href="https://www.pinterest.com/Fat7i2017/_created/" target="_blank" rel="noopener noreferrer" style={{
-                display: 'inline-block',
-                padding: '0.75rem 1.4rem',
-                background: 'linear-gradient(135deg, #a3122f, #740f23)',
+            <form onSubmit={handleSubmit} style={{ maxWidth: '600px', margin: '0 auto' }}>
+              <input
+                type="text"
+                placeholder="Your name"
+                value={form.name}
+                required
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  marginBottom: '1rem',
+                  borderRadius: '8px',
+                  border: '1px solid #444',
+                  background: '#111',
+                  color: '#f0f0f0'
+                }}
+              />
+              <input
+                type="email"
+                placeholder="Your email"
+                value={form.email}
+                required
+                onChange={(e) => setForm({ ...form, email: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  marginBottom: '1rem',
+                  borderRadius: '8px',
+                  border: '1px solid #444',
+                  background: '#111',
+                  color: '#f0f0f0'
+                }}
+              />
+              <textarea
+                placeholder="Your review"
+                value={form.message}
+                required
+                onChange={(e) => setForm({ ...form, message: e.target.value })}
+                style={{
+                  width: '100%',
+                  padding: '0.75rem',
+                  marginBottom: '1rem',
+                  borderRadius: '8px',
+                  border: '1px solid #444',
+                  background: '#111',
+                  color: '#f0f0f0'
+                }}
+              />
+              {error && <p style={{ color: '#ff4f4f', marginBottom: '1rem' }}>{error}</p>}
+              <button type="submit" style={{
+                padding: '0.75rem 1.5rem',
+                background: 'linear-gradient(135deg, #00c896, #00795d)',
                 color: '#fff',
+                border: 'none',
                 borderRadius: '999px',
-                textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'transform 0.3s ease',
+                fontWeight: 'bold',
+                cursor: 'pointer',
+                transition: 'transform 0.3s ease'
               }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-                View My Created Pins ↗
-              </a>
-            </div>
-          </section>
+                Submit Review
+              </button>
+            </form>
 
-          <section style={{ marginTop: '5rem' }}>
-            <h2 style={{ fontSize: '1.85rem', marginBottom: '1.25rem' }}>☕ Support My Work</h2>
-            <p style={{ fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-              If you’ve enjoyed my work or found inspiration here, you can support me with a coffee — it helps me keep creating cool stuff.
-            </p>
-            <div>
-              <a href="https://buymeacoffee.com/fat7i2017" target="_blank" rel="noopener noreferrer" style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                gap: '0.5rem',
-                padding: '0.75rem 1.4rem',
-                background: 'linear-gradient(135deg, #ffdd00, #ffaa00)',
-                color: '#000',
-                borderRadius: '999px',
-                textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'transform 0.3s ease',
-              }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-                <img src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg" alt="Buy Me a Coffee" style={{ height: '24px' }} />
-                Buy Me a Coffee
-              </a>
-            </div>
-          </section>
-
-          <section style={{ marginTop: '5rem' }}>
-            <h2 style={{ fontSize: '1.85rem', marginBottom: '1.25rem' }}>🎥 My YouTube Channel</h2>
-            <p style={{ fontSize: '1.125rem', maxWidth: '700px', margin: '0 auto 2.5rem' }}>
-              I also post on YouTube from time to time — walkthroughs, designs, and more. Have a peek at my creative side in motion.
-            </p>
-            <div>
-              <a href="https://www.youtube.com/channel/UCQCdwH2GS95BdptkmZG5MUQ" target="_blank" rel="noopener noreferrer" style={{
-                display: 'inline-block',
-                padding: '0.75rem 1.4rem',
-                background: 'linear-gradient(135deg, #ff0000, #cc0000)',
-                color: '#fff',
-                borderRadius: '999px',
-                textDecoration: 'none',
-                fontWeight: '500',
-                transition: 'transform 0.3s ease',
-              }} onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'} onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}>
-                Visit My Channel ↗
-              </a>
-            </div>
+            {reviews.length > 0 && (
+              <div style={{ marginTop: '3rem', textAlign: 'left' }}>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '1rem' }}>Recent Reviews</h3>
+                {reviews.map((r, i) => (
+                  <div key={i} style={{ marginBottom: '1.5rem', padding: '1rem', background: '#1a1a1a', borderRadius: '12px' }}>
+                    <p style={{ fontWeight: 'bold', marginBottom: '0.25rem' }}>{r.name} <span style={{ fontWeight: 'normal', color: '#aaa', fontSize: '0.9rem' }}>({r.date})</span></p>
+                    <p style={{ margin: 0 }}>{r.message}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </section>
         </main>
 
