@@ -17,7 +17,7 @@ export default function Home() {
         </p>
 
         <div style={{ marginTop: '2.5rem' }}>
-          <a href="mailto:abdallah@aboelmagd.net" style={{ 
+          <a href=\"mailto:feftyeltayar@gmail.com\" style={{ 
             display: 'inline-block', 
             padding: '0.75rem 1.5rem', 
             backgroundColor: '#000', 
@@ -27,6 +27,22 @@ export default function Home() {
             fontWeight: 'bold'
           }}>
             Let’s Work Together
+          </a>
+        </div>
+
+        <div style={{ marginTop: '1.5rem' }}>
+          <a href="https://www.hopp.bio/fat7i2017" target="_blank" rel="noopener noreferrer" style={{
+            display: 'inline-block',
+            marginTop: '1rem',
+            padding: '0.6rem 1.2rem',
+            backgroundColor: '#f4f4f4',
+            color: '#000',
+            border: '1px solid #ccc',
+            borderRadius: '6px',
+            textDecoration: 'none',
+            fontWeight: '500'
+          }}>
+            🌐 Follow Me Online
           </a>
         </div>
       </main>
