@@ -17,7 +17,7 @@ export default function Home() {
         </p>
 
         <div style={{ marginTop: '2.5rem' }}>
-          <a href=\"mailto:feftyeltayar@gmail.com\" style={{ 
+          <a href="mailto:feftyeltayar@gmail.com" style={{
             display: 'inline-block', 
             padding: '0.75rem 1.5rem', 
             backgroundColor: '#000', 
